@@ -1,0 +1,26 @@
+<nav *ngIf="exibirMenu" class="navbar navbar-expand-sm navbar-dark navbarColor shadow" [ngClass]="Cor">
+  <div class="container-fluid" id="divCorpo">
+    <button class="navbar-toggler" type="button">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse">
+      <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+        <li class="nav-item active">
+          <a class="nav-link active" routerLink="principal" [ngClass]="{'text-danger' : rotaSelecionada == 'principal' }">Principal</a>
+        </li>
+
+        <ng-content [select]="cabeca">
+
+        </ng-content>
+
+        <ng-content  [select]="corpo">
+
+        </ng-content>
+
+
+
+      </ul>
+    </div>
+  </div>
+</nav>

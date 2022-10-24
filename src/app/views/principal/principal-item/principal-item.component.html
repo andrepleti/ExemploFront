@@ -1,0 +1,26 @@
+<form [formGroup]="form">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-floating">
+        <input formControlName="Nome" type="text" class="form-control text-dark" id="Nome" placeholder="Nome">
+        <label form="Nome" class="text-dark">Nome</label>
+        <input formControlName="Codigo" type="hidden" id="Codigo" readonly>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating">
+      <input formControlName="Idade" type="text" class="form-control text-dark" id="Idade" placeholder="Idade">
+      <label form="Idade" class="text-dark">Idade</label>
+    </div>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+  <div class="row-md-12">
+    <button type="button" class="btn btn-danger" routerLink="/principal" [queryParams]="{ 'texto': texto }">
+      Voltar
+    </button>
+  </div>
+  </div>
+
+</form>

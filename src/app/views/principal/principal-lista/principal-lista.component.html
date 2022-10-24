@@ -1,0 +1,22 @@
+<div [formGroup]="form">
+
+  <div class="form-floating input-group mb-3">
+    <input type="text" class="form-control text-dark" placeholder="Pesquisa" formControlName="Texto" id="Texto">
+    <label for="Texto" class="text-dark">Pesquisa</label>
+    <button class="btn btn-sm btn-primary border-0 border-bottom" type="button" (click)="Submit()">
+      Pesquisar
+    </button>
+  </div>
+
+  <div class="list-group mb-1" *ngFor="let item of lista">
+
+    <div class="text-white list-group-item list-group-item-action flex-column align-items-start mb-1 shadow bg-transparent border"
+          style="background-color: #afc718 !important;">
+          <p>{{ item.Nome }}</p>
+          <p>{{ 'Idade: ' + item.Idade }}</p>
+          <button class="btn btn-primary" [routerLink]="[item.Codigo]" [queryParams]="{ 'texto': form.value.Texto }">Abrir Cadastro</button>
+        </div>
+
+  </div>
+
+</div>
