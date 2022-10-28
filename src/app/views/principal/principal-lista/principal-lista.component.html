@@ -6,6 +6,9 @@
     <button class="btn btn-sm btn-primary border-0 border-bottom" type="button" (click)="Submit()">
       Pesquisar
     </button>
+    <button class="btn btn-sm btn-success border-0 border-bottom" type="button" [routerLink]="[0]">
+      Adicionar
+    </button>
   </div>
 
   <div class="list-group mb-1" *ngFor="let item of lista">

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, switchMap } from 'rxjs';
+import { first, map, switchMap } from 'rxjs';
 import { Pessoa } from 'src/app/models/Pessoa';
 import { PrincipalService } from '../principal.service';
 
@@ -21,6 +21,7 @@ export class PrincipalItemComponent implements OnInit {
   form: FormGroup = this.formBuilder.group({});
   codigoCadastro: number = 0;
   texto: string = "";
+  exibirSenhaTexto: boolean = false;
 
   ngOnInit(): void {
     this.InicializarForm();
@@ -42,8 +43,10 @@ export class PrincipalItemComponent implements OnInit {
   InicializarForm() {
     this.form = this.formBuilder.group({
       Codigo: [0, []],
-      Nome: [null, [Validators.required]],
-      Idade: [null, [Validators.required]]
+      Nome: [null, [Validators.required, Validators.maxLength(200)]],
+      Login: [null, [Validators.required, Validators.maxLength(10)]],
+      Senha: [null, [Validators.required, Validators.maxLength(10)]],
+      Idade: [null, [Validators.required, Validators.min(18)]]
     });
   }
 
@@ -60,6 +63,55 @@ export class PrincipalItemComponent implements OnInit {
 
   CarregarParametros() {
     this.router.navigate([], { queryParams: { "texto": this.texto } });
+  }
+
+  OnSubmit() {
+    if (this.form.valid) {
+      this.Submit();
+    } else {
+      this.ExibirValidacoes(this.form);
+    }
+  }
+
+  Submit() {
+    if (this.form.value.Codigo > 0) {
+      this.service.Atualizar(this.form.value)
+      .pipe(first())
+      .subscribe(() => {
+        this.router.navigate(["/principal"]);
+      }
+      );
+    } else {
+      this.service.Inserir(this.form.value)
+        .pipe(first())
+        .subscribe(() => {
+              this.router.navigate(["/principal"]);
+      }
+      );
+    }
+  }
+
+  ExibirValidacoes(form: FormGroup) {
+    Object.keys(form.controls).forEach(field => {
+      const controle = form.get(field);
+      if (controle instanceof FormControl) {
+        controle.markAsTouched({ onlySelf: true });
+      } else if (controle instanceof FormGroup) {
+        this.ExibirValidacoes(controle);
+      }
+    });
+  }
+
+  RetornaCampo(campo: string ) : FormControl {
+    return this.form.get(campo) as FormControl;
+  }
+
+  AplicaCssErro(campo: string) {
+     return { 'is-invalid': this.VerificaValidTouched(campo) }  
+   }
+
+   VerificaValidTouched(campo: string) {    
+    return !this.RetornaCampo(campo).valid && this.RetornaCampo(campo).touched;  
   }
 
 }

@@ -23,4 +23,13 @@ export class PrincipalService {
       return x;
     }));
   }
+
+  Inserir(objeto: Pessoa) {
+    return this.httpService.Post("Pessoa", objeto);
+  }
+
+  Atualizar(objeto: Pessoa) {
+    return this.httpService.Put("Pessoa", objeto);
+  }
+
 }

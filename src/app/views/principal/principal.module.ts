@@ -5,6 +5,7 @@ import { PrincipalListaComponent } from './principal-lista/principal-lista.compo
 import { PrincipalItemComponent } from './principal-item/principal-item.component';
 import { PrincipalService } from './principal.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    PrincipalRoutingModule
+    PrincipalRoutingModule,
+    SharedModule
   ],
   providers: [PrincipalService]
 })

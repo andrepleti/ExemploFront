@@ -17,5 +17,13 @@ export class HttpService<T> {
   GetList(caminho: string) {
     return this.http.get<T[]>(`${environment.apiUrl}${caminho}`).pipe(take(1));
   }
+
+  Post(caminho: string, corpo: object) {
+    return this.http.post<T>(`${environment.apiUrl}${caminho}`, corpo).pipe(take(1));
+  }
+
+  Put(caminho: string, corpo: object) {
+    return this.http.put<T>(`${environment.apiUrl}${caminho}`, corpo).pipe(take(1));
+  }
 }
 

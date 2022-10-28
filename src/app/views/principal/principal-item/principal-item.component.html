@@ -1,22 +1,45 @@
-<form [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="OnSubmit()">
   <div class="row">
     <div class="col-md-6">
       <div class="form-floating">
-        <input formControlName="Nome" type="text" class="form-control text-dark" id="Nome" placeholder="Nome">
+        <input formControlName="Nome" type="text" [ngClass]="AplicaCssErro('Nome')" class="form-control text-dark" id="Nome" placeholder="Nome">
         <label form="Nome" class="text-dark">Nome</label>
+        <app-erro [controle]="RetornaCampo('Nome')" nomeCampo="Nome" class="invalid-tooltip"></app-erro>
         <input formControlName="Codigo" type="hidden" id="Codigo" readonly>
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-floating">
-      <input formControlName="Idade" type="text" class="form-control text-dark" id="Idade" placeholder="Idade">
+      <input formControlName="Idade" type="text" [ngClass]="AplicaCssErro('Idade')" class="form-control text-dark" id="Idade" placeholder="Idade">
       <label form="Idade" class="text-dark">Idade</label>
+      <app-erro [controle]="RetornaCampo('Idade')" nomeCampo="Idade" class="invalid-tooltip"></app-erro>
     </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-floating">
+        <input formControlName="Login" type="text" [ngClass]="AplicaCssErro('Login')" class="form-control text-dark" id="Login" placeholder="Login">
+        <label form="Login" class="text-dark">Login</label>
+        <app-erro [controle]="RetornaCampo('Login')" nomeCampo="Login" class="invalid-tooltip"></app-erro>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating input-group">
+        <input formControlName="Senha" [type]="exibirSenhaTexto ? 'text' : 'password'" [ngClass]="AplicaCssErro('Senha')" class="form-control text-dark" id="Senha" placeholder="Senha">
+        <button type="button" class="btn btn-sm btn-dark border-0 border-bottom " (click)="exibirSenhaTexto=!exibirSenhaTexto">
+          O
+        </button>
+        <label form="Senha" class="text-dark">Senha</label>
+        <app-erro [controle]="RetornaCampo('Senha')" nomeCampo="Senha" class="invalid-tooltip"></app-erro>
+      </div>
     </div>
   </div>
 
   <div class="row mt-3">
   <div class="row-md-12">
+    <button type="submit" class="btn btn-success me-1">Salvar</button>
     <button type="button" class="btn btn-danger" routerLink="/principal" [queryParams]="{ 'texto': texto }">
       Voltar
     </button>
